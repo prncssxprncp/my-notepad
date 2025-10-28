@@ -1,0 +1,261 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body, html {
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* === Starfield === */
+  .stars {
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    background: white;
+    box-shadow:
+      2vw 5vh 2px white, 10vw 8vh 2px white, 15vw 15vh 1px white,
+      22vw 22vh 1px white, 28vw 12vh 2px white, 32vw 32vh 1px white,
+      38vw 18vh 2px white, 42vw 35vh 1px white, 48vw 25vh 2px white,
+      53vw 42vh 1px white, 58vw 15vh 2px white, 63vw 38vh 1px white,
+      68vw 28vh 2px white, 73vw 45vh 1px white, 78vw 32vh 2px white,
+      83vw 48vh 1px white, 88vw 20vh 2px white, 93vw 52vh 1px white,
+      98vw 35vh 2px white, 5vw 60vh 1px white, 12vw 65vh 2px white;
+    animation: twinkle 8s infinite linear;
+    z-index: 1;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+  }
+
+  /* === Shooting Stars === */
+  .shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    animation: shoot 3s infinite ease-in;
+    z-index: 1;
+  }
+
+  .shooting-star:nth-child(2) { top: 20%; left: -100px; animation-delay: 0s; }
+  .shooting-star:nth-child(3) { top: 35%; left: -100px; animation-delay: 1s; }
+  .shooting-star:nth-child(4) { top: 50%; left: -100px; animation-delay: 2s; }
+  .shooting-star:nth-child(5) { top: 65%; left: -100px; animation-delay: 3s; }
+  .shooting-star:nth-child(6) { top: 80%; left: -100px; animation-delay: 4s; }
+
+  @keyframes shoot {
+    0% { transform: translateX(0) translateY(0) rotate(25deg); opacity: 1; }
+    100% { transform: translateX(120vw) translateY(50vh) rotate(25deg); opacity: 0; }
+  }
+
+  /* === Profile Card === */
+  .profile-card {
+    position: relative;
+    background: rgba(17, 17, 17, 0.9);
+    border: 2px solid #00ffcc;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.3);
+    padding: 40px;
+    width: 380px;
+    text-align: center;
+    color: #fff;
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+
+  .profile-card:hover {
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.6);
+  }
+
+  .profile-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00ffcc;
+    margin-bottom: 15px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00ffcc;
+    margin-bottom: 8px;
+  }
+
+  .profile-title {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+  }
+
+  .profile-info {
+    background: rgba(0, 255, 204, 0.08);
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 25px;
+    text-align: left;
+  }
+
+  .profile-info p {
+    margin: 6px 0;
+    font-size: 0.9rem;
+    color: #e0e0e0;
+  }
+
+  .profile-info strong {
+    color: #00ffcc;
+  }
+
+  .profile-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .profile-buttons a {
+    background: transparent;
+    color: #00ffcc;
+    border: 2px solid #00ffcc;
+    border-radius: 50px;
+    padding: 10px 25px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .profile-buttons a:hover {
+    background: #00ffcc;
+    color: #111;
+    box-shadow: 0 0 15px #00ffcc;
+  }
+
+  /* === Alert Box === */
+  .alert {
+    background: rgba(255, 75, 43, 0.1);
+    border: 1px solid #ff4b2b;
+    color: #ff4b2b;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    display: none;
+  }
+
+  /* === Success Notification === */
+  .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 255, 204, 0.1);
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 99;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+    animation: fadeInOut 4s ease forwards;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
+
+  @media (max-width: 400px) {
+    .profile-card {
+      width: 90%;
+      padding: 25px;
+    }
+  }
+</style>
+
+<div class="stars"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+<!-- === SUCCESS NOTIFICATION === -->
+<div class="notification" id="successNotify">
+  ✅ Successfully Registered! Welcome to the system.
+</div>
+
+<div class="profile-card" id="profileCard">
+  <div class="alert" id="alertBox"></div>
+
+  <div class="profile-name">{{ user.first_name }} {{ user.middle_name or '' }} {{ user.last_name }}</div>
+  <div class="profile-title">{{ user.role or "Member" }}</div>
+
+  <div class="profile-info" id="profileInfo">
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>DOB:</strong> {{ user.dob }} (Age: {{ user.age }})</p>
+    <p><strong>Contact:</strong> {{ user.contact }}</p>
+  </div>
+
+  <div class="profile-buttons">
+    <a href="#" id="editProfileBtn">Edit Profile</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const alertBox = document.getElementById("alertBox");
+    const successNotify = document.getElementById("successNotify");
+
+    const username = `{{ user.username|default('', true) }}`;
+    const email = `{{ user.email|default('', true) }}`;
+    const contact = `{{ user.contact|default('', true) }}`;
+    const dob = `{{ user.dob|default('', true) }}`;
+
+    // === Validate Profile Info ===
+    let errors = [];
+    if (!username.trim()) errors.push("Username is missing.");
+    if (!email.trim() || !email.includes("@")) errors.push("Invalid or missing email.");
+    if (!contact.trim() || contact.length < 7) errors.push("Contact number is too short.");
+    if (!dob.trim()) errors.push("Date of birth is missing.");
+
+    if (errors.length > 0) {
+      alertBox.style.display = "block";
+      alertBox.innerHTML = errors.join("<br>");
+    } else {
+      // === Show registration success notification ===
+      successNotify.style.display = "block";
+      setTimeout(() => {
+        successNotify.style.display = "none";
+      }, 4000);
+    }
+
+    // === Confirmation Before Editing ===
+    const editBtn = document.getElementById("editProfileBtn");
+    editBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      const confirmEdit = confirm("Are you sure you want to change your information?");
+      if (confirmEdit) {
+        window.location.href = "{{ url_for('main.edit_profile') }}";
+      }
+    });
+  });
+</script>
+{% endblock %}

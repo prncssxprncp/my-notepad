@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "first_name": "Danish",
+      "middle_name": "Dimatulac",
+      "last_name": "Manalo",
+      "dob": "2006-02-10",
+      "age": 19,
+      "contact": "09129283489",
+      "address": "Brgy. Magdapio, Pagsanjan, Laguna",
+      "username": "danishmanalo",
+      "email": "danishmanalo0@gmail.com",
+      "password_hash": "pbkdf2:sha256:260000$<random_salt>$<hashed_password>"
+    },
+    {
+      "first_name": "Princess Anne ",
+      "middle_name": "",
+      "last_name": "Principe",
+      "date_of_birth": "2005-08-07",
+      "age": "20",
+      "city_municipality": "Santa Cruz",
+      "barangay": "San Pablo Sur",
+      "zip_code": "4009",
+      "email": "prncssxprncp@gmail.com",
+      "contact_number": "09634350273",
+      "username": "inchennnn",
+      "password_hash": "scrypt:32768:8:1$hQAXJHcxFIUD5Y4a$5cb0b0f1bb6e84e4ed1fc5a218fde92ea8ff433aa7597ce6aee03c737494386fb4d5b4bb264a685b01d2c8ae7c77c88b8f2c2af9c5fb38b8b3f5df1924742612"
+    },
+    {
+      "first_name": "Princess Anne ",
+      "middle_name": "",
+      "last_name": "Principe",
+      "date_of_birth": "2005-08-07",
+      "age": "20",
+      "city_municipality": "Santa Cruz",
+      "barangay": "San Pablo Sur",
+      "zip_code": "4009",
+      "email": "prncssxprncp@gmail.com",
+      "contact_number": "09634350273",
+      "username": "extrachase",
+      "password_hash": "scrypt:32768:8:1$timxbLNUPnTEGt1M$8d03dbce0a6acee76c0a46911b9dba4691a13d5e529a1e03a97b703301cf0ef86cf2a478bead1080f1c9392e960d84448ea5d151b3ec0438dc3371e967ed9c3a"
+    }
+  ]
+}
